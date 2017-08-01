@@ -10,12 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170801142419) do
+ActiveRecord::Schema.define(version: 20170801175217) do
 
   create_table "cash_registers", force: :cascade do |t|
     t.integer "store_id"
     t.integer "register_number"
-    t.boolean "open"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -26,6 +25,7 @@ ActiveRecord::Schema.define(version: 20170801142419) do
     t.datetime "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "status"
   end
 
   create_table "stores", force: :cascade do |t|

@@ -13,11 +13,14 @@ class CashiersController < ApplicationController
   end
 
   def create
-    user = User.new(cashier_params)
-    user.access = "cashier"
-    user.save
-    session[:id] = user.id
-    redirect_to cashier_path(user.id)
+    @cashier = User.new(cashier_params)
+    @cashier.access = "cashier"
+    if @cashier.save
+      session[:id] = @cashier.id
+      redirect_to cashier_path(@cashier.id)
+    else
+      render :new
+    end
   end
 
   def show
@@ -54,6 +57,13 @@ class CashiersController < ApplicationController
       visit.save
     end
     redirect_to :store_queue
+  end
+
+  def close_cash_register
+    current_user.cashier_cash_registers.each do |ccr|
+      ccr.close
+    end
+    redirect_to '/'
   end
 
   private

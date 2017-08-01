@@ -14,10 +14,13 @@ class StoresController < ApplicationController
       flash[:alert] = "You can not create a store unless you are an admin"
       redirect_to "/"
     else
-      store = Store.new(store_params)
-      store.admin_id = current_user.id
-      store.save
-      redirect_to store_path(store.id)
+      @store = Store.new(store_params)
+      @store.admin_id = current_user.id
+      if @store.save
+        redirect_to store_path(@store.id)
+      else
+        render :new
+      end
     end
   end
 

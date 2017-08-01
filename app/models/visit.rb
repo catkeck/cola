@@ -1,4 +1,5 @@
 class Visit < ApplicationRecord
+  validates :customer_id, :store_id, :position, :start_time, :status, presence: true
   belongs_to :customer, class_name: "User"
   belongs_to :store
 

@@ -5,11 +5,14 @@ class AdminsController < ApplicationController
   end
 
   def create
-    user = User.new(admin_params)
-    user.access = "admin"
-    user.save
-    session[:id] = user.id
-    redirect_to admin_path(user.id)
+    @admin = User.new(admin_params)
+    @admin.access = "admin"
+    if @admin.save
+      session[:id] = @admin.id
+      redirect_to admin_path(@admin.id)
+    else
+      render :new
+    end
   end
 
   def show

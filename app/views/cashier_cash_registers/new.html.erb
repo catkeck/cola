@@ -1,0 +1,5 @@
+<%= form_for(@cashier_cash_register, url: open_cash_register_path) do |f| %>
+  <%= binding.pry %>
+  Select Cash Register <%= f.select :cash_register_id, @cash_registers.collect { |cash_register| [cash_register.register_number, cash_register.id]} %></br>
+  <%= f.submit "Select Cash Register" %>
+<% end %>

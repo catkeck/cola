@@ -9,6 +9,14 @@ RSpec.describe User, :type => :model do
       access: "admin"
     )
   }
+  let(:repeat_user) {
+    User.create(
+      name: "Admin User",
+      username: "admin_user",
+      password: "password",
+      access: "admin"
+    )
+  }
   let(:invalid_user) {
     User.create(
       name: "Invalid User"
@@ -48,6 +56,11 @@ RSpec.describe User, :type => :model do
 
   it "is not an admin" do
     expect(cashier.is_admin?).to eq(false)
+  end
+
+  it "is invalid if username is already taken" do
+    valid_user
+    expect(repeat_user).not_to be_valid
   end
 
 end

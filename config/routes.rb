@@ -25,9 +25,14 @@ Rails.application.routes.draw do
   resources :stores
   resources :cashiers, only: [:new, :create, :show]
   resources :visits, only: [:new, :create, :show]
+  resources :cash_registers, only: [:new, :create, :show]
 
   get '/stores/:id/token', to: 'stores#token', as: 'token'
 
   get '/cashiers/store_queue', to: 'cashiers#store_queue', as: 'store_queue'
   post '/cashiers/next', to: 'cashiers#next', as: 'next'
+  post '/cashiers/close_cash_register', to: 'cashiers#close_cash_register', as: 'close_cash_register'
+
+  get '/cashier_cash_registers/new', to: 'cashier_cash_registers#new', as: 'open_cash_register'
+  post '/cashier_cash_registers/new', to: 'cashier_cash_registers#create'
 end

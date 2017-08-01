@@ -5,11 +5,14 @@ class CustomersController < ApplicationController
   end
 
   def create
-    user = User.new(customer_params)
-    user.access = "customer"
-    user.save
-    session[:id] = user.id
-    redirect_to customer_path(user.id)
+    @customer = User.new(customer_params)
+    @customer.access = "customer"
+    if @customer.save
+      session[:id] = @customer.id
+      redirect_to customer_path(@customer.id)
+    else
+      render :new
+    end
   end
 
   def show

@@ -1,0 +1,5 @@
+<%= form_for(@cash_register, url: new_cash_register_path) do |f| %>
+  Register Number: <%= f.text_field :register_number %></br>
+  Store: <%= f.select :store_id, current_user.stores.collect { |store| [store.name, store.id]} %></br>
+  <%= f.submit "Create New Cash Register" %>
+<% end %>

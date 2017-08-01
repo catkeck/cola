@@ -1,4 +1,5 @@
 class Token < ApplicationRecord
+  validates :store_id, :code, :date, presence: true
   belongs_to :store
 
   def self.find_or_create(store_id)
