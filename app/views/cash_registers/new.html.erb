@@ -1,5 +1,26 @@
-<%= form_for(@cash_register, url: new_cash_register_path) do |f| %>
-  Register Number: <%= f.text_field :register_number %></br>
-  Store: <%= f.select :store_id, current_user.stores.collect { |store| [store.name, store.id]} %></br>
-  <%= f.submit "Create New Cash Register" %>
-<% end %>
+<div class="col-lg-6">
+  <div class="well bs-component">
+    <%= form_for @cash_register, url: admins_signup_path, class: "form-horizontal" do |f| %>
+      <fieldset>
+      <legend> New Cash Register </legend>
+      <div class="form-group">
+        <label for="cash_register_register_number" class="col-lg-2 control-label">Register Number:</label>
+        <div class="col-lg-10">
+          <%= f.text_field :register_number, {class: "form-control"} %></br>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cash_register_store_id" class="col-lg-2 control-label">Store:</label>
+        <div class="col-lg-10">
+          <%= f.select :store_id, current_user.stores.collect { |store| [store.name, store.id]}, {}, {class: "form-control"}%></br>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-10 col-lg-offset-2">
+          <%= f.submit "Create New Cash Register", {class: "btn btn-primary"} %>
+        </div>
+      </div>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

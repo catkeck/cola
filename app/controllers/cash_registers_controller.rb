@@ -5,9 +5,9 @@ class CashRegistersController < ApplicationController
   end
 
   def create
-    @cash_register.new(cash_register_params)
+    @cash_register = CashRegister.new(cash_register_params)
     if @cash_register.save
-      redirect_to cash_register_path(@cash_register.id)
+      redirect_to store_path(cash_register_params[:store_id])
     else
       render :new
     end

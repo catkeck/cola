@@ -1,1 +1,21 @@
-<%=@store.name%>
+<div class="col-lg-6">
+  <div class="well bs-component">
+    <legend><%= @store.name%></legend>
+    <% @store.cash_registers.each do |cash_register| %>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Register Number:  <%= cash_register.register_number%></h3>
+        </div>
+        <div class="panel-body">
+          Current Occupant: <% if cash_register.open? %>
+            <%= cash_register.current_cashier.name%>
+          <% else %>
+            empty
+          <% end %></br>
+        </div>
+      </div>
+    <% end %>
+    <a href="/cash_registers/new" class="btn btn-info">Create New Cash Register</a>
+  </div>
+</div>
+

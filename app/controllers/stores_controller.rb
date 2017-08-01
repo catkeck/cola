@@ -28,6 +28,10 @@ class StoresController < ApplicationController
     @store = Store.find(params[:id])
   end
 
+  def index
+    @stores = current_user.stores
+  end
+
   def update
     if @store.admin != current_user
       flash[:alert] = "You can not update stores that you are not the admin of."

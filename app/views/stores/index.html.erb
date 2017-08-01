@@ -1,0 +1,14 @@
+<% @stores.each do |store| %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title"><%= link_to store.name, store_path(store)%></h3>
+    </div>
+    <div class="panel-body">
+      Location: (<%= store.latitude%>,<%=store.longitude%>) </br>
+      Address: <%= store.address %> </br>
+    </div>
+  </div>
+<% end %>
+<a href="/stores/new" class="btn btn-info">Create New Store</a>
+
+  
