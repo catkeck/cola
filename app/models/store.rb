@@ -1,4 +1,6 @@
 class Store < ApplicationRecord
+  validates :name, :latitude, :longitude, :address, :admin_id, presence: true
+
   has_many :visits
   has_many :customers, through: :visits
   has_many :cash_registers

@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  validates :name, :username, :password_digest, presence: true
+  validates :access, inclusion: { in: %w(admin cashier customer), message: "%{value} is not a valid access type"}
+
   #cashier 
   has_secure_password
   
