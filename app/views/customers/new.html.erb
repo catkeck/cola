@@ -1,0 +1,7 @@
+<%= form_for(@customer, url: customers_signup_path) do |f| %>
+  Name: <%= f.text_field :name %></br>
+  Username: <%= f.text_field :username %></br>
+  Password: <%= f.password_field :password%></br>
+  Password Confirmation: <%= f.password_field :password_confirmation%></br>
+  <%= f.submit "Create Customer Account" %>
+<% end %>

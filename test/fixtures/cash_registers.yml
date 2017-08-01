@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  store_id: 1
+  register_number: 1
+  open: false
+
+two:
+  store_id: 1
+  register_number: 1
+  open: false

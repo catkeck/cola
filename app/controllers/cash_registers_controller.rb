@@ -1,0 +1,4 @@
+class CashRegistersController < ApplicationController
+  
+
+end
