@@ -10,7 +10,7 @@ class VisitsController < ApplicationController
     if code.nil?
       flash[:alert] = "A code has not yet been created for this store today."
       redirect_to new_visit_path
-    elsif visit_params[:code].downcase != code[:code].downcase
+    elsif params[:code].downcase != code[:code].downcase
       flash[:alert] = "The code you have entered is not correct. Please retrieve the correct code for this store."
       redirect_to new_visit_path
     else
@@ -31,7 +31,7 @@ class VisitsController < ApplicationController
   end
 
   def position(store_id)
-    Visit.select{ |visit| visit.store_id == store_id && visit.date == Date.today}.count + 1
+    Visit.select{ |visit| visit.store_id == store_id.to_i && visit.start_time.to_date == Date.today}.count + 1
   end
 
 end

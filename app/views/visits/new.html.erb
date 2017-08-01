@@ -1,7 +1,7 @@
-<%= form_for(@visit, url: new_visit_path) do |f| %>
+<%= form_for(:visit, url: visits_path) do |f| %>
   <%= f.label :code %>
-  <%= f.text_field :code %>
+  <%= text_field_tag :code %></br>
   <%= f.label :store %>
-  <%= f.select :store_id, @stores.collect { |store| [store.name, store.id]} %>
+  <%= f.select :store_id, @stores.collect { |store| [store.name, store.id]} %></br>
   <%= f.submit %>
 <% end %>

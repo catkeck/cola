@@ -36,7 +36,7 @@ class CashiersController < ApplicationController
   end
 
   def store_queue
-    
+
   end
 
   def next
