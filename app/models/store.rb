@@ -15,6 +15,10 @@ class Store < ApplicationRecord
     end
   end
 
+  def altered_address
+    self.address.split(" ").join("+")
+  end
+
   def unique_store
     stores = Store.select{ |store| store.name == self.name && store.address == self.address}
     if stores.count > 1
