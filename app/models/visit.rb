@@ -14,6 +14,10 @@ class Visit < ApplicationRecord
   end
 
   def eta
-    5.minutes/60
+    if (self.store.all_cashiers - self.store.busy_cashiers) >= position_in_line
+      0
+    else
+      self.store.average_time*position_in_line/self.store.all_cashiers
+    end
   end
 end

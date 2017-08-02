@@ -25,4 +25,22 @@ class Store < ApplicationRecord
   def queue
     self.visits.select{ |visit| visit.status == "queued"}
   end
+
+  def average_time
+    served_visits = self.visits.select{|visit| visit.status=="served"}
+    if served_visits.count == 0
+      30
+    else 
+      served_visits.inject(0){ |sum, visit| sum + visit.end_time.to_i - visit.checkout_time.to_i}/served_visits.count
+      5
+    end
+  end
+
+  def busy_cashiers
+    self.visits.select{|visit| visit.status == "serving"}.count
+  end
+
+  def all_cashiers
+    self.cash_registers.select { |cash_register| cash_register.open?}.count
+  end
 end
