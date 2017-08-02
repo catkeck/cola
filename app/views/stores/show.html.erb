@@ -1,21 +1,55 @@
-<div class="col-lg-6">
+<div class="col-lg-12">
   <div class="well bs-component">
     <legend><%= @store.name%></legend>
-    <% @store.cash_registers.each do |cash_register| %>
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h3 class="panel-title">Register Number:  <%= cash_register.register_number%></h3>
-        </div>
-        <div class="panel-body">
-          Current Occupant: <% if cash_register.open? %>
-            <%= cash_register.current_cashier.name%>
-          <% else %>
-            empty
-          <% end %></br>
-        </div>
+
+    <!-- generates code for store -->
+    <a href="/stores/<%=@store.id%>/token" class="btn btn-info btn-lg btn-block">Show Token</a></br></br>
+
+    <!--lists the store's cash registers -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Registers:</h3>
       </div>
-    <% end %>
-    <a href="/cash_registers/new" class="btn btn-info">Create New Cash Register</a>
+      <div class="panel-body">
+        <ul class="list-group">
+          <% @store.cash_registers.each do |cash_register| %>
+            <li class="list-group-item">
+              <h4 class="list-group-item-heading"> Register <%= cash_register.register_number%></h4>
+              Current Occupant: <% if cash_register.open? %>
+                <%= cash_register.current_cashier.name%>
+              <% else %>
+                empty
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <a href="/cash_registers/new" class="btn btn-info btn-lg btn-block">Create New Cash Register</a></br></br>
+
+    <!--lists the store's cashiers -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Cashiers:</h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list-group">
+          <% @store.cashiers.each do |cashier| %>
+            <li class="list-group-item">
+              <%= cashier.name%></br>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <a href="/cashiers/new" class="btn btn-info btn-lg btn-block">Add New Cashier</a>
   </div>
 </div>
 
+<iframe
+  width="600"
+  height="450"
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDl9ey-R3uQR8lKkaLRyySgyYisuwge4js
+    &q=Space+Needle,Seattle+WA" allowfullscreen>
+</iframe>

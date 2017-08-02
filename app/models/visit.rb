@@ -5,7 +5,15 @@ class Visit < ApplicationRecord
 
   #this is not finished, it is just for testing
   
+  def time_waiting
+    (Time.now - start_time).to_i/60
+  end
+
+  def position_in_line
+    self.position - self.store.queue.first.position+1
+  end
+
   def eta
-    5.minutes
+    5.minutes/60
   end
 end

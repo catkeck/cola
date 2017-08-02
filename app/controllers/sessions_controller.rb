@@ -27,6 +27,11 @@ class SessionsController < ApplicationController
     user_create("cashier")
   end
 
+  def logout
+    session.delete :id
+    redirect_to '/'
+  end
+
   private
 
     def user_params
@@ -41,10 +46,12 @@ class SessionsController < ApplicationController
           session[:id] = @user.id
           redirect_to "/#{user_type}s/#{@user.id}/"
         else
+          flash[:alert] = "Sorry, your username and password do not match or this is not the correct user type for your account. Please try again."
           @access = user_type
           render "login"
         end
       else
+        flash[:alert] = "Sorry, we do not recognize this username. Please try again or create a new account."
         @access = user_type
         render "login"
       end

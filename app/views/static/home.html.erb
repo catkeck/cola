@@ -1,3 +1,49 @@
-
-<p>Hello</p>
-<a href="#" class="btn btn-default"> Blah </a>
+<div class="col-lg-12">
+  <div class="well bs-component">
+  <% if !logged_in? %>
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <h3 class="panel-title">Customer Log In</h3>
+          </div>
+          <div class="panel-body">
+            Log in as a customer to add yourself to the checkout line at any participating store. </br>
+            In order to get in line you must obtain a daily token from the store you are at.
+            If you don't have a customer account yet, you can sign up below.</br></br>
+            <%= link_to "Log In", customer_login_path, class: "btn btn-success btn-block"%>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Admin Log In</h3>
+          </div>
+          <div class="panel-body">
+            Log in as an admin to </br>
+            1. add and manage your stores and cashiers </br>
+            2. generate your stores' daily tokens. </br>
+            If you don't have a admin account yet, you can sign up below.</br></br>
+            <%= link_to "Log In", admins_login_path, class: "btn btn-info btn-block" %>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="panel panel-warning">
+          <div class="panel-heading">
+            <h3 class="panel-title">Cashier Log In</h3>
+          </div>
+          <div class="panel-body">
+            Log in as a cashier to </br>
+            1. Assign yourself to a cash register </br>
+            2. Call customers to your register</br>
+            If you don't have a cashier account yet, ask your admin to create an account for you.</br></br>
+            <%= link_to "Log In", cashier_login_path, class: "btn btn-warning btn-block"%>
+          </div>
+        </div>
+      </div>
+    </div>
+  <%end%>
+  </div>
+</div>

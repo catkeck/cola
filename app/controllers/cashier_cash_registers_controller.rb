@@ -3,7 +3,7 @@ class CashierCashRegistersController < ApplicationController
   def new
     if verify_viewer
       @cashier_cash_register = CashierCashRegister.new
-      @cash_registers = CashRegister.select{ |store| store == current_user.store}
+      @cash_registers = CashRegister.all.select{ |cash_register| cash_register.store == current_user.store}
     end
   end
 
@@ -29,7 +29,7 @@ class CashierCashRegistersController < ApplicationController
     end
 
     def close_assigned_ccrs
-      assigned_ccr = cashier.cashier_cash_registers.select { |ccr| ccr.status == true}
+      assigned_ccr = current_user.cashier_cash_registers.select { |ccr| ccr.status == true}
       if assigned_ccr
         assigned_ccr.each do |ccr|
           ccr.close
@@ -38,7 +38,7 @@ class CashierCashRegistersController < ApplicationController
     end
 
     def verify_viewer
-      cash_registers = CashRegister.select{ |store| store == current_user.store}
+      cash_registers = CashRegister.all.select{ |cash_register| cash_register.store == current_user.store}
       if !current_user.is_cashier?
         flash[:alert] = "Sorry, you must be a cashier to select a cash register"
         redirect_to '/'

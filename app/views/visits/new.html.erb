@@ -1,7 +1,21 @@
-<%= form_for(:visit, url: visits_path) do |f| %>
-  <%= f.label :code %>
-  <%= text_field_tag :code %></br>
-  <%= f.label :store %>
-  <%= f.select :store_id, @stores.collect { |store| [store.name, store.id]} %></br>
-  <%= f.submit %>
-<% end %>
+<div class="col-lg-12">
+  <div class="well bs-component">
+    <%= form_for :visit, url: store_visits_path, class: "form-horizontal"  do |f| %>
+      <fieldset>
+        <legend>Enter Checkout Line for <%=@store.name %></legend>
+        <div class="form-group">
+          <label for="visit_code" class="col-lg-2 control-label">Code:</label>
+          <div class="col-lg-10">
+            <%= text_field_tag :code, nil, {class: "form-control"} %></br>
+          </div>
+        </div>
+        <%= f.hidden_field :store_id, value: @store.id %>
+        <div class="form-group">
+          <div class="col-lg-10 col-lg-offset-2">
+            <%= f.submit "Enter Checkout Line", {class: "btn btn-primary"} %>
+          </div>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

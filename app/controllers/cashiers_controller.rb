@@ -16,8 +16,7 @@ class CashiersController < ApplicationController
     @cashier = User.new(cashier_params)
     @cashier.access = "cashier"
     if @cashier.save
-      session[:id] = @cashier.id
-      redirect_to cashier_path(@cashier.id)
+      redirect_to cashiers_path
     else
       render :new
     end
@@ -38,26 +37,37 @@ class CashiersController < ApplicationController
     end
   end
 
-  def store_queue
+  def index
+    if !current_user.is_admin? 
+      flash[:alert] = "You are not an admin so you can not view a list of cashiers."
+      redirect_to '/'
+    else
+      @cashiers = current_user.stores.map{|store| store.cashiers}.flatten
+    end
+  end
 
+  def store_queue
+    
   end
 
   def next
-    current_visit = Visits.find_by(status: "serving", store_id: current_user.store_id, ).order(:position)
-    next_visit = Visits.find_by(status: "queued", store_id: current_user.store_id, ).order(:position)
+    current_visit = Visit.order(:position).find_by(status: "serving", store_id: current_user.store_id)
+    next_visit = Visit.order(:position).find_by(status: "queued", store_id: current_user.store_id)
     if !current_visit.nil?
       current_visit.status = "served"
       current_visit.save
     end
-    if visit.nil?
-      flash[:alert] = "There is no one in line currently."
+    if next_visit.nil?
+      flash[:message] = "There is no one in line currently."
     else
-      visit.cashier_id = current_user.id
-      visit.status = "serving"
-      visit.save
+      flash[:message] = "You are now serving #{next_visit.customer.name}"
+      next_visit.cashier_id = current_user.id
+      next_visit.status = "serving"
+      next_visit.save
     end
     redirect_to :store_queue
   end
+
 
   def close_cash_register
     current_user.cashier_cash_registers.each do |ccr|

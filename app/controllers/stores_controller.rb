@@ -26,10 +26,19 @@ class StoresController < ApplicationController
 
   def show
     @store = Store.find(params[:id])
+    if current_user.is_admin?
+      render :show
+    else
+      render :show_customer
+    end
   end
 
   def index
-    @stores = current_user.stores
+    if current_user.is_admin?
+      @stores = current_user.stores
+    else
+      @stores = Store.all
+    end
   end
 
   def update

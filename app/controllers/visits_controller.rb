@@ -1,7 +1,7 @@
 class VisitsController < ApplicationController
 
   def new
-    @stores = Store.all
+    @store = Store.find_by(id: params[:store_id])
     @visit = Visit.new
   end
 
@@ -9,7 +9,7 @@ class VisitsController < ApplicationController
     if verify_code
       @visit = Visit.new(customer_id: current_user.id, store_id: visit_params[:store_id], position: position(visit_params[:store_id]), start_time: Time.now, status: "queued") 
       if @visit.save
-        redirect_to visit_path(@visit.id)
+        redirect_to '/'
       else
         @stores = Store.all
         render :new
@@ -39,14 +39,14 @@ class VisitsController < ApplicationController
 
 
   def verify_code
-    code = Token.find_by(visit_params[:store_id])
+    code = Token.find_by(store_id: visit_params[:store_id], date: Date.today)
     if code.nil?
       flash[:alert] = "A code has not yet been created for this store today."
-      redirect_to new_visit_path
+      redirect_to new_store_visit_path
       false
     elsif params[:code].downcase != code[:code].downcase
       flash[:alert] = "The code you have entered is not correct. Please retrieve the correct code for this store."
-      redirect_to new_visit_path
+      redirect_to new_store_visit_path
       false
     else
       true

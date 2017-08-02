@@ -21,4 +21,8 @@ class Store < ApplicationRecord
       errors.add(:name, "A store with this name and address already exists.")
     end
   end
+
+  def queue
+    self.visits.select{ |visit| visit.status == "queued"}
+  end
 end

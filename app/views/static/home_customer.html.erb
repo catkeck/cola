@@ -1,0 +1,17 @@
+<% if @visits.empty? %>
+  <meta http-equiv="refresh" content="5">
+<%end%>
+
+<% @visits.each do |visit| %>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h2><%=visit.store.name%></h2>
+        <h3>
+          You are #<%= visit.position_in_line%> in line.</br></br>
+          You will be attended to in approximately <%= visit.eta %> minutes.
+        </h3>
+      </div>
+    </div>
+  </div>
+<% end %>

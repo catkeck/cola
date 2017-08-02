@@ -1,14 +1,19 @@
-<% @stores.each do |store| %>
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h3 class="panel-title"><%= link_to store.name, store_path(store)%></h3>
-    </div>
-    <div class="panel-body">
-      Location: (<%= store.latitude%>,<%=store.longitude%>) </br>
-      Address: <%= store.address %> </br>
-    </div>
+<div class="col-lg-12">
+  <div class="well bs-component">
+    <% @stores.each do |store| %>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= link_to store.name, store_path(store)%></h3>
+        </div>
+        <div class="panel-body">
+          Location: (<%= store.latitude%>,<%=store.longitude%>) </br>
+          Address: <%= store.address %> </br>
+          <%= link_to "View Store", store_path(store.id) %>
+        </div>
+      </div>
+    <% end %>
+    <% if current_user.is_admin? %>
+      <a href="/stores/new" class="btn btn-info btn-lg btn-block">Create New Store</a>
+    <% end %>
   </div>
-<% end %>
-<a href="/stores/new" class="btn btn-info">Create New Store</a>
-
-  
+</div>

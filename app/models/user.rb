@@ -25,4 +25,13 @@ class User < ApplicationRecord
   def is_customer?
     self.access == "customer"
   end
+
+  def has_cash_register?
+    !!self.cashier_cash_registers.find_by(status: true)
+  end
+
+  def current_cash_register
+    self.cashier_cash_registers.find_by(status: true)
+  end
+
 end
