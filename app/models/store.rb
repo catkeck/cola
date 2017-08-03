@@ -1,5 +1,5 @@
 class Store < ApplicationRecord
-  validates :name, :latitude, :longitude, :address, :admin_id, presence: true
+  validates :name, :address, :admin_id, presence: true
   validate :user_is_admin, :unique_store
 
   has_many :visits

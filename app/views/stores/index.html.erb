@@ -6,7 +6,6 @@
           <h3 class="panel-title"><%= link_to store.name, store_path(store)%></h3>
         </div>
         <div class="panel-body">
-          Location: (<%= store.latitude%>,<%=store.longitude%>) </br>
           Address: <%= store.address %> </br>
           <%= link_to "View Store", store_path(store.id) %>
         </div>

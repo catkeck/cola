@@ -3,7 +3,7 @@ class CashierCashRegistersController < ApplicationController
   def new
     if verify_viewer
       @cashier_cash_register = CashierCashRegister.new
-      @cash_registers = CashRegister.all.select{ |cash_register| cash_register.store == current_user.store}
+      @cash_registers = CashRegister.all.select{ |cash_register| cash_register.store == current_user.store}.sort_by{|cash_register| cash_register.register_number}
     end
   end
 
