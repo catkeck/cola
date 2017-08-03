@@ -39,6 +39,7 @@ class SessionsController < ApplicationController
     end
 
     def user_create(user_type)
+      flash[:alert] = ""
       @user = User.find_by(username: params[:user][:username])
       if !@user.nil?
         return redirect_to "/#{user_type}s/login" unless @user.authenticate(params[:user][:password])
@@ -46,13 +47,13 @@ class SessionsController < ApplicationController
           session[:id] = @user.id
           redirect_to "/#{user_type}s/#{@user.id}/"
         else
-          flash[:alert] = "Sorry, your username and password do not match or this is not the correct user type for your account. Please try again."
           @access = user_type
+          flash[:alert] = "Sorry, your username and password do not match or this is not the correct user type for your account. Please try again."
           render "login"
         end
       else
-        flash[:alert] = "Sorry, we do not recognize this username. Please try again or create a new account."
         @access = user_type
+        flash[:alert] = "Sorry, we do not recognize this username. Please try again or create a new account."
         render "login"
       end
     end
