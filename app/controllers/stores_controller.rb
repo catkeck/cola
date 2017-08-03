@@ -44,6 +44,7 @@ class StoresController < ApplicationController
     if current_user.is_admin?
       @stores = find_admin_stores(@stores)
     end
+    @locations = @stores.map{|store| {lat: store.latitude, lng: store.longitude}}.to_json
     @stores = @stores.sort_by{|store| store.name}
   end
 
