@@ -55,6 +55,7 @@ class CashiersController < ApplicationController
     next_visit = Visit.order(:position).find_by(status: "queued", store_id: current_user.store_id)
     if !current_visit.nil?
       current_visit.status = "served"
+      current_visit.end_time = Time.now
       current_visit.save
     end
     if next_visit.nil?
@@ -63,6 +64,7 @@ class CashiersController < ApplicationController
       flash[:message] = "You are now serving #{next_visit.customer.name}"
       next_visit.cashier_id = current_user.id
       next_visit.status = "serving"
+      next_visit.checkout_time = Time.now
       next_visit.save
     end
     redirect_to :store_queue

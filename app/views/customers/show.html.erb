@@ -1,1 +1,18 @@
-<%= @customer.name%>
+<div class="col-lg-12">
+  <div class="well bs-component">
+    <%= @customer.name%>
+    <% @customer.visits.each do |visit|%>
+      <%= visit.
+  </div>
+</div>
+
+t.integer "customer_id"
+    t.integer "store_id"
+    t.integer "position"
+    t.datetime "start_time"
+    t.datetime "checkout_time"
+    t.datetime "end_time"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "cashier_id"

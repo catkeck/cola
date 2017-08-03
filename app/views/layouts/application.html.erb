@@ -4,7 +4,7 @@
     <title>Cola</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag "https://bootswatch.com/flatly/bootstrap.min.css" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -60,7 +60,7 @@
     <% elsif flash[:message].present? %>
       <div class="col-lg-6">
         <div class="alert alert-dismissible alert-success">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-dismiss="messsage">&times;</button>
           <p><%=flash[:alert]%></p>
         </div>
       </div>
