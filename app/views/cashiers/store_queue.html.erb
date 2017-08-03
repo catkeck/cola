@@ -1,4 +1,4 @@
-<div class="col-lg-10 col-lg-offset-2">
+<div class="col-lg-offset-1 col-lg-10 col-lg-offset-1">
   <% if current_user.has_cash_register? %>
       <%= form_for(:button, url: next_path) do |f| %>
         <%= f.submit "Next", {class: "btn btn-primary btn-block"} %>

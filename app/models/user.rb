@@ -34,4 +34,6 @@ class User < ApplicationRecord
     self.cashier_cash_registers.find_by(status: true)
   end
 
+
+
 end

@@ -1,7 +1,7 @@
 class StaticController < ApplicationController
 
   def home
-    if current_user.nil?
+    if current_user.nil? || current_user.is_admin? || current_user.is_cashier?
       render :home
     elsif current_user.is_customer?
       @visits = current_user.visits.all.select{|visit| visit.status=="queued"}
@@ -9,11 +9,11 @@ class StaticController < ApplicationController
       if !@currently_serving
         flash[:message] = "It is your turn. Please go to register number #{@currently_serving.cashier.current_cash_register.register_number}"
       end
-        render :home_customer
-    elsif current_user.is_admin?
-      render :home_admin
-    elsif current_user.is_cashier?
-      render :home_cashier
+    #     render :home_customer
+    # elsif current_user.is_admin?
+    #   render :home_admin
+    # elsif current_user.is_cashier?
+    #   render :home_cashier
     end
   end
   
