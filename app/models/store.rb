@@ -9,6 +9,12 @@ class Store < ApplicationRecord
   belongs_to :admin, class_name: "User"
   has_many :tokens
 
+  geocoded_by :address   # can also be an IP address
+  after_validation :geocode
+
+  reverse_geocoded_by :latitude, :longitude
+  after_validation :reverse_geocode
+
   def user_is_admin
     if !self.admin.is_admin? 
       errors.add(:admin, "must be an admin")
@@ -21,7 +27,9 @@ class Store < ApplicationRecord
 
 
   def self.search(search)
-    where("name LIKE ?", "%#{search}%") 
+    name_results = where("name LIKE ?", "%#{search}%") 
+    location_results = self.near(search, 20, :order => false)
+    name_results + location_results
   end
 
   def unique_store

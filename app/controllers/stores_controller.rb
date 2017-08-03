@@ -34,16 +34,20 @@ class StoresController < ApplicationController
   end
 
   def index
-    if current_user.is_admin?
-      @stores = current_user.stores
+    if params[:latitude].present? && params[:longitude].present?
+      @stores = Store.all.near([params[:latitude], params[:longitude]], 20)
+    elsif params[:search].present?
+      @stores = Store.search(params[:search])
     else
       @stores = Store.all
     end
-    if params[:search].present?
-      @stores = @stores.search(params[:search])
+    if current_user.is_admin?
+      @stores = find_admin_stores(@stores)
     end
     @stores = @stores.sort_by{|store| store.name}
   end
+
+
 
   def update
     if @store.admin != current_user
@@ -61,6 +65,10 @@ class StoresController < ApplicationController
 
   def store_params
     params.require(:store).permit(:name, :address, :image)
+  end
+
+  def find_admin_stores(stores)
+    stores.select{ |store| store.admin == current_user}
   end
 
 end
