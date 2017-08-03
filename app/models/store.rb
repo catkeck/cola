@@ -19,6 +19,11 @@ class Store < ApplicationRecord
     self.address.split(" ").join("+")
   end
 
+
+  def self.search(search)
+    where("name LIKE ?", "%#{search}%") 
+  end
+
   def unique_store
     stores = Store.select{ |store| store.name == self.name && store.address == self.address}
     if stores.count > 1
@@ -37,6 +42,16 @@ class Store < ApplicationRecord
     else 
       served_visits.inject(0){ |sum, visit| sum + visit.end_time.to_i - visit.checkout_time.to_i}/served_visits.count
       5
+    end
+  end
+
+  def next_customer_waiting_time
+    if queue.empty?
+      "You will be attended to as soon as you are ready."
+    elsif queue.last.eta.nil?
+      "There are no cashiers working right now so you will be unable to check out."
+    else
+      (queue.last.eta+average_time).to_s + " minutes"
     end
   end
 

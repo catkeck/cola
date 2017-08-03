@@ -1,5 +1,6 @@
 class CashierCashRegister < ApplicationRecord
-  validates :cashier_id, :cash_register_id, :status, presence: true
+  validates :cashier_id, :cash_register_id, presence: true
+  validates :status, inclusion: {in: [true, false]}
   validate :user_is_cashier
 
   belongs_to :cashier, class_name: 'User'

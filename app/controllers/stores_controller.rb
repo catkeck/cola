@@ -39,6 +39,10 @@ class StoresController < ApplicationController
     else
       @stores = Store.all
     end
+    if params[:search].present?
+      @stores = @stores.search(params[:search])
+    end
+    @stores = @stores.sort_by{|store| store.name}
   end
 
   def update
@@ -56,7 +60,7 @@ class StoresController < ApplicationController
   private
 
   def store_params
-    params.require(:store).permit(:name, :address)
+    params.require(:store).permit(:name, :address, :image)
   end
 
 end

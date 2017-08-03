@@ -72,9 +72,7 @@ class CashiersController < ApplicationController
 
 
   def close_cash_register
-    current_user.cashier_cash_registers.each do |ccr|
-      ccr.close
-    end
+    current_user.close_cash_register
     redirect_to '/'
   end
 

@@ -1,7 +1,14 @@
 <div class="col-lg-12">
   <div class="well bs-component">
     <div class="jumbotron">
-      <h1><%= @store.name%></h1>
+      <div class="col-lg-6">
+        <h1><%= @store.name%></h1>
+      </div>
+      <div class="col-lg-6" style="text-align:right">
+        <% if !@store.image.nil? %>
+          <img src=<%=@store.image%> width="250px">
+        <% end %>
+      </div>
     </div>
 
     <!-- generates code for store -->

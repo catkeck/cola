@@ -1,16 +1,48 @@
 <div class="col-lg-12">
   <div class="well bs-component">
-    <% @stores.each do |store| %>
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h3 class="panel-title"><%= link_to store.name, store_path(store)%></h3>
-        </div>
-        <div class="panel-body">
-          Address: <%= store.address %> </br>
-          <%= link_to "View Store", store_path(store.id) %>
+    <%= form_tag(stores_path, :method => "get", id: "search-form") do %>
+      <div class="form-group">
+        <div class="input-group">
+          <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
+          <span class="input-group-btn">
+            <%= submit_tag "Search", :name => nil, class: "btn btn-default" %>
+          </span>
         </div>
       </div>
     <% end %>
+    <% if @stores.blank? && params[:search]%>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">No Stores Found</h3>
+          </div>
+          <div class="panel-body">
+            There are no stores containing the term <%= params[:search] %>
+          </div>
+        </div>
+      <% else %>
+        <% @stores.each do |store| %>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title"><%= link_to store.name, store_path(store)%></h3>
+            </div>
+            <div class="panel-body">
+              <div class="col-lg-6">
+                Address: <%= store.address %> </br>
+                <% if current_user.is_customer?%>
+                  Approximated Waiting Time: <%= store.next_customer_waiting_time %></br>
+                <% end %>
+                <%= link_to "View Store", store_path(store.id) %>
+              </div>
+              <div class="col-lg-6" style="text-align:right">
+                <% if !store.image.nil? %>
+                  <img src=<%=store.image%> width="100px">
+                <% end %>
+              </div>    
+            </div>
+          </div>
+        <% end %>
+      <% end %>    
+    </div>
     <% if current_user.is_admin? %>
       <a href="/stores/new" class="btn btn-info btn-lg btn-block">Create New Store</a>
     <% end %>

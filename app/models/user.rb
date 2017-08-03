@@ -31,9 +31,15 @@ class User < ApplicationRecord
   end
 
   def current_cash_register
-    self.cashier_cash_registers.find_by(status: true)
+    ccr = self.cashier_cash_registers.find_by(status: true)
+    ccr.nil? ? nil : ccr.cash_register
   end
 
+  def close_cash_register
+    self.cashier_cash_registers.each do |ccr|
+      ccr.close
+    end
+  end
 
 
 end

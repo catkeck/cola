@@ -9,11 +9,6 @@ class StaticController < ApplicationController
       if !@currently_serving
         flash[:message] = "It is your turn. Please go to register number #{@currently_serving.cashier.current_cash_register.register_number}"
       end
-    #     render :home_customer
-    # elsif current_user.is_admin?
-    #   render :home_admin
-    # elsif current_user.is_cashier?
-    #   render :home_cashier
     end
   end
   
