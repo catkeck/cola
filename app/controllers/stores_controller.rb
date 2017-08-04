@@ -59,7 +59,7 @@
 
   def index
     if params[:latitude].present? && params[:longitude].present?
-      @stores = Store.all.near([params[:latitude], params[:longitude]], 1)
+      @stores = Store.all.near([params[:latitude], params[:longitude]], 10)
     elsif params[:search].present?
       @stores = Store.search(params[:search])
     else
