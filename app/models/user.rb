@@ -9,8 +9,11 @@ class User < ApplicationRecord
   
   has_many :cashier_cash_registers, foreign_key: "cashier_id"
   has_many :cash_registers, through: :cashier_cash_registers
+  has_many :visits, foreign_key: "cashierr_id"
+
   #customer
   has_many :visits, foreign_key: "customer_id"
+
   #admin
   has_many :stores, foreign_key: "admin_id"
   belongs_to :store, optional: true
