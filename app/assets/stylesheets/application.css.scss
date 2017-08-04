@@ -14,5 +14,14 @@
  *= require_self
  */
 
-@import "bootstrap-sprockets";
-@import "bootstrap";
+/*@import "bootstrap-sprockets";
+@import "bootstrap";*/
+
+body {
+  font-family: 'Work Sans', sans-serif;
+}
+
+h1 {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 200;
+}
