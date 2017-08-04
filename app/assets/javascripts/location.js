@@ -30,7 +30,7 @@ function initializeMap(locations) {
   });
 }
 
-$(window).load(function() { 
+$(document).ready(function() { 
   var locations = JSON.parse(document.getElementById("locations").value);
   initializeMap(locations);
 });
