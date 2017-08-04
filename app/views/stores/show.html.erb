@@ -11,15 +11,13 @@
       </div>
     </div>
 
-    <!-- generates code for store -->
-    <a href="/stores/<%=@store.id%>/token" class="btn btn-info btn-lg btn-block">Show Token</a></br></br>
     <iframe
       width="100%"
       height="300"
       frameborder="0" style="border:0"
-      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB61PMfdO7UvfSWMJoQsEMVHgKvEX3-7mc
-        &q=<%=@store.altered_address%>" allowfullscreen>
+      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB61PMfdO7UvfSWMJoQsEMVHgKvEX3-7mc&q=<%=@store.altered_address%>" allowfullscreen>
     </iframe>
+
     <!--lists the store's cash registers -->
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -40,6 +38,8 @@
         </ul>
       </div>
     </div>
+    <!-- generates code for store -->
+    <a href="/stores/<%=@store.id%>/token" class="btn btn-info btn-lg btn-block">Show Token</a></br></br>
     <a href="/cash_registers/new" class="btn btn-info btn-lg btn-block">Create New Cash Register</a></br></br>
 
     <!--lists the store's cashiers -->
