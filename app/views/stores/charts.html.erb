@@ -1,0 +1,24 @@
+<div class="col-lg-12">
+    <div class="well bs-component">
+        <div class="row">
+            <div class="col-xs-6">
+                <%= column_chart @visits_per_cashier, xtitle: "Cashier", ytitle: "Customers Served", title: "Customers per Cashier" %>
+            </div>
+            <div class="col-xs-6">
+                <%= line_chart @visits_per_day, xtitle: "Day", ytitle: "Customers Served", title: "Customers per Day" %>
+            </div>
+        </div>
+        <div class="row">
+            <br/>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <%= column_chart @serve_time_per_day, xtitle: "Cashier", ytitle: "Minutes", title: "Serve time per Cashier" %>
+            </div>
+            <div class="col-xs-6">
+                <%= line_chart @waittime_per_day, xtitle: "Day", ytitle: "Minutes", title: "Wait time per Day" %>
+            </div>
+        </div>
+    </div>
+</div>
+
