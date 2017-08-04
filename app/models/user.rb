@@ -2,6 +2,7 @@ class User < ApplicationRecord
   validates :name, :username, :password_digest, presence: true
   validates :username, uniqueness: true
   validates :access, inclusion: { in: %w(admin cashier customer), message: "%{value} is not a valid access type"}
+  validate :customer_has_phone_number
 
   #cashier 
   has_secure_password
@@ -41,5 +42,9 @@ class User < ApplicationRecord
     end
   end
 
-
+  def customer_has_phone_number
+    if self.is_customer? && !self.phone_number.present?
+      errors.add(:phone_number, "can't be blank")
+    end
+  end
 end

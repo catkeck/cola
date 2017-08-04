@@ -6,7 +6,7 @@ class StaticController < ApplicationController
     elsif current_user.is_customer?
       @visits = current_user.visits.all.select{|visit| visit.status=="queued"}
       @currently_serving = current_user.visits.find_by(status: "serving")
-      if !@currently_serving
+      if @currently_serving
         flash[:message] = "It is your turn. Please go to register number #{@currently_serving.cashier.current_cash_register.register_number}"
       end
     end
