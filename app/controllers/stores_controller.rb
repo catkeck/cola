@@ -1,4 +1,4 @@
-class StoresController < ApplicationController
+  class StoresController < ApplicationController
 
   def new
     if !current_user.is_admin?
@@ -33,9 +33,33 @@ class StoresController < ApplicationController
     end
   end
 
+  def charts
+    store = Store.find(params[:id])
+
+    visits_per_cashier_rows = store.visits.where("status = 'served'").group(:cashier_id).count
+    @visits_per_cashier = visits_per_cashier_rows.map do |cashier_id, value|
+      [User.find_by(id: cashier_id).name, value]
+    end
+
+    visits_per_day_rows = store.visits.where("status = 'served'").group("strftime('%w', end_time)").count
+    @visits_per_day = visits_per_day_rows.map do |day, value|
+      [Date::ABBR_DAYNAMES[day.to_i], value]
+    end
+
+    waittime_per_day_rows = store.visits.where("status = 'served'").group("strftime('%w', end_time)").average("(julianday(checkout_time) - julianday(start_time)) * 24 * 60")
+    @waittime_per_day = waittime_per_day_rows.map do |day, value|
+      [Date::ABBR_DAYNAMES[day.to_i], value]
+    end
+
+    serve_time_per_day_rows = store.visits.where("status = 'served'").group(:cashier_id).average("(julianday(end_time) - julianday(checkout_time)) * 24 * 60")
+    @serve_time_per_day = serve_time_per_day_rows.map do |cashier_id, value|
+      [User.find_by(id: cashier_id).name, value]
+    end
+  end
+
   def index
     if params[:latitude].present? && params[:longitude].present?
-      @stores = Store.all.near([params[:latitude], params[:longitude]], 20)
+      @stores = Store.all.near([params[:latitude], params[:longitude]], 1)
     elsif params[:search].present?
       @stores = Store.search(params[:search])
     else
@@ -47,8 +71,6 @@ class StoresController < ApplicationController
     @locations = @stores.map{|store| {lat: store.latitude, lng: store.longitude}}.to_json
     @stores = @stores.sort_by{|store| store.name}
   end
-
-
 
   def update
     if @store.admin != current_user

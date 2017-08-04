@@ -2,9 +2,8 @@ class Visit < ApplicationRecord
   validates :customer_id, :store_id, :position, :start_time, :status, presence: true
   belongs_to :customer, class_name: "User"
   belongs_to :store
+  #belongs_to :cashier, class_name: "User"
 
-  #this is not finished, it is just for testing
-  
   def time_waiting
     (Time.now - start_time).to_i/60
   end

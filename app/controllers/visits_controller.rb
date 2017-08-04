@@ -11,7 +11,8 @@ class VisitsController < ApplicationController
       if @visit.save
         redirect_to '/'
       else
-        @stores = Store.all
+        flash[:alert] = @visit.errors.first
+        @store = Store.find_by(id: params[:store_id])
         render :new
       end
     end

@@ -37,6 +37,14 @@ gem 'jquery-rails'
 gem 'geocoder'
 gem 'gmaps4rails'
 gem 'underscore-rails'
+
+#SMS and TTS
+gem 'nexmo'
+
+#Graphs
+gem "chartkick"
+gem 'active_median', '~> 0.1.0'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

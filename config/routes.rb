@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get '/admins/:id', to: 'admins#show', as: 'admin'
 
   get '/stores/:id/token', to: 'stores#token', as: 'token'
+  get '/stores/:id/charts', to: 'stores#charts', as: 'chart'
 
   get '/cashiers/store_queue', to: 'cashiers#store_queue', as: 'store_queue'
   post '/cashiers/next', to: 'cashiers#next', as: 'next'

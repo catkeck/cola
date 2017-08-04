@@ -61,11 +61,17 @@ class CashiersController < ApplicationController
     if next_visit.nil?
       flash[:message] = "There is no one in line currently."
     else
-      flash[:message] = "You are now serving #{next_visit.customer.name}"
+      customer = next_visit.customer
+      flash[:message] = "You are now serving #{customer.name}"
       next_visit.cashier_id = current_user.id
       next_visit.status = "serving"
       next_visit.checkout_time = Time.now
       next_visit.save
+
+      message = "Hello #{customer.first_name}. It\'s your turn! Please approach register #{current_user.current_cash_register.register_number}"
+
+      flash[:alert] = NotificationsController.tts(customer.phone_number, message)
+      #flash[:alert] = NotificationsController.sms(customer.phone_number, message)
     end
     redirect_to :store_queue
   end

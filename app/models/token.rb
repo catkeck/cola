@@ -11,7 +11,6 @@ class Token < ApplicationRecord
     end
   end
 
-
   private
 
   def self.generate_code

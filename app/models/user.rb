@@ -2,14 +2,18 @@ class User < ApplicationRecord
   validates :name, :username, :password_digest, presence: true
   validates :username, uniqueness: true
   validates :access, inclusion: { in: %w(admin cashier customer), message: "%{value} is not a valid access type"}
+  validate :customer_has_phone_number
 
   #cashier 
   has_secure_password
   
   has_many :cashier_cash_registers, foreign_key: "cashier_id"
   has_many :cash_registers, through: :cashier_cash_registers
+  has_many :visits, foreign_key: "cashierr_id"
+
   #customer
   has_many :visits, foreign_key: "customer_id"
+
   #admin
   has_many :stores, foreign_key: "admin_id"
   belongs_to :store, optional: true
@@ -24,6 +28,10 @@ class User < ApplicationRecord
 
   def is_customer?
     self.access == "customer"
+  end
+
+  def first_name
+    self.name.split(" ").first
   end
 
   def has_cash_register?
@@ -41,5 +49,9 @@ class User < ApplicationRecord
     end
   end
 
-
+  def customer_has_phone_number
+    if self.is_customer? && !self.phone_number.present?
+      errors.add(:phone_number, "can't be blank")
+    end
+  end
 end

@@ -28,7 +28,11 @@ class Store < ApplicationRecord
 
   def self.search(search)
     name_results = where("name LIKE ?", "%#{search}%") 
-    location_results = self.near(search, 20, :order => false)
+    begin
+      location_results = self.near(search, 20, :order => false)
+    rescue
+      location_results = []
+    end
     name_results + location_results
   end
 
