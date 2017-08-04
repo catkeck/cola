@@ -48,8 +48,6 @@ class StoresController < ApplicationController
     @stores = @stores.sort_by{|store| store.name}
   end
 
-
-
   def update
     if @store.admin != current_user
       flash[:alert] = "You can not update stores that you are not the admin of."

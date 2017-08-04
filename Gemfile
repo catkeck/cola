@@ -37,6 +37,7 @@ gem 'jquery-rails'
 gem 'geocoder'
 gem 'gmaps4rails'
 gem 'underscore-rails'
+gem 'nexmo'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
